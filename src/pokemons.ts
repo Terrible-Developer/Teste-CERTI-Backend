@@ -6,13 +6,19 @@ const getPokemons = (): string[] => {
 }
 
 const addPokemon = (pokemon: string | undefined): number => {
-	if(pokemon === undefined) {
+	if(pokemon === undefined || pokemon === null) {
 		console.log('Erro, pokemon não-definido');
 		return 1;
 	}
 	else {
-		pokemons.push(pokemon);
-		return 0;
+		try {
+			pokemons.push(pokemon);
+			return 0;
+		}
+		catch(e) {
+			console.log('Erro: ', e);
+			return 2;
+		}
 	}
 }
 
