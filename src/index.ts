@@ -1,30 +1,20 @@
 import express from 'express';
 import cors from 'cors';
 import { addPokemon, getPokemons } from './pokemons';
+import { initConnection, getConnectionStatus } from './db';
+import routes from './routes';
 
 const app = express();
+require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-	return res.send('Welcome to the API.');
-});
+app.use('/api', routes);
 
-app.get('/pokemons', (req, res) => {
-	res.send(getPokemons());
-});
-
-app.post('/pokemons', (req, res) => {
-	console.log(req.body);
-	const result = addPokemon(req.body.pokemon?.toString());
-	if(result === 0)
-		res.send('Pokemón adicionado com sucesso');
-	else
-		res.send('Houve um problema. Por favor verifique o log da aplicação.');
-});
+initConnection(process.env.MONGODB_URL!);
 
 
 app.listen(port, () => {
