@@ -15,7 +15,6 @@ const addPokemon = async (pokemon: string | undefined) => {
 	}
 	else {
 		try {
-			//pokemons.push(pokemon);
 			const data = savePokemon(pokemon);
 			return data;
 		}

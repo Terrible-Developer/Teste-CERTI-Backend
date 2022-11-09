@@ -3,6 +3,7 @@ import Model from './model/dbSchema'
 
 let db: mongoose.Connection; 
 
+//Inicializa a conexão
 const initConnection = (connectionString: string): void => {
 	mongoose.connect(connectionString);
 	db = mongoose.connection;
@@ -16,6 +17,7 @@ const initConnection = (connectionString: string): void => {
 	});
 }
 
+//Retorna todos os itens da coleção de pokemons
 const getAllPokemons = async () => {
 	try {
 		const pokemonList = await Model.find();
@@ -25,6 +27,7 @@ const getAllPokemons = async () => {
 	}
 }
 
+//Adiciona um novo pokemon à coleção e retorna ele em seguida
 const savePokemon = async (pokemon: string) => {
 	const data = new Model({
 		name: pokemon
@@ -39,6 +42,7 @@ const savePokemon = async (pokemon: string) => {
 	}
 }
 
+//Retorna o status de conexão ao banco
 const getConnectionStatus = (): mongoose.ConnectionStates => {
 	return mongoose.connection.readyState;
 }
