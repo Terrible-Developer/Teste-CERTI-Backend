@@ -8,17 +8,20 @@ router.get('/', (req, res) => {
 	return res.send('Welcome to the API.');
 });
 
-router.get('/pokemons', (req, res) => {
-	res.send(getPokemons());
+router.get('/pokemons', async (req, res) => {
+	res.send(await getPokemons());
 });
 
-router.post('/pokemons', (req, res) => {
-	console.log(req.body);
-	const result = addPokemon(req.body.pokemon?.toString());
-	if(result === 0)
-		res.send('Pokemón adicionado com sucesso');
+router.post('/pokemons', async (req, res) => {
+	const data = await addPokemon(req.body.pokemon);
+	if(data) {
+	  res.send({
+	  	message: 'Pokemón adicionado com sucesso',
+	  	data: data
+	  });
+	}
 	else
-		res.send('Houve um problema. Por favor verifique o log da aplicação.');
+	  res.send({ message: 'Houve um problema. Por favor verifique o log da aplicação.' });
 });
 
 router.get('/dbdebug', (req, res) => {
