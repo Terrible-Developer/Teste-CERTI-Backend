@@ -1,4 +1,4 @@
-import { getAllPokemons, savePokemon } from './db';
+import { getAllPokemons, savePokemon, deletePokemon } from './db';
 
 const getPokemons = async () => {
 	try {
@@ -24,7 +24,13 @@ const addPokemon = async (pokemon: string | undefined) => {
 	}
 }
 
+const removePokemon = async (pokemonId: string) => {
+	const result = await deletePokemon(pokemonId);	
+	return result;
+}
+
 export {
 	getPokemons,
-	addPokemon
+	addPokemon,
+	removePokemon
 }

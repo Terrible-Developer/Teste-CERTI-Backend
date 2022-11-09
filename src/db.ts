@@ -42,6 +42,12 @@ const savePokemon = async (pokemon: string) => {
 	}
 }
 
+//Deleta um pokemon do banco
+const deletePokemon = async (pokemonId: string) => {
+	const result = await Model.deleteOne({ _id: pokemonId });
+	return result;
+}
+
 //Retorna o status de conexão ao banco
 const getConnectionStatus = (): mongoose.ConnectionStates => {
 	return mongoose.connection.readyState;
@@ -52,5 +58,6 @@ export {
 	initConnection,
 	getConnectionStatus,
 	savePokemon,
-	getAllPokemons
+	getAllPokemons,
+	deletePokemon
 }
